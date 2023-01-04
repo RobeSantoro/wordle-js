@@ -34,9 +34,9 @@ fetchData().then(() => {
   let words = document.querySelectorAll('.word');
 
   // Initialize empty array for current guess
-  let guess = []
+  let guesses = []
 
-  // Initialize conters to keep track of the number of letters in the currebt guess array  
+  // Initialize counters to keep track of the number of letters in the currebt guess array  
   let letterIndex = 0;
 
   // Initialize counter to keep track of the number of tries done
@@ -48,9 +48,9 @@ fetchData().then(() => {
 
     // Push the letter to the current guess array
 
-    if (guess.length < 5 && letter.match(/^[a-zA-Z]$/)) {
+    if (guesses.length < 5 && letter.match(/^[a-zA-Z]$/)) {
 
-      guess.push(letter);
+      guesses.push(letter);
       words[guessIndex].children[letterIndex].innerText = letter;
 
       // Increment the letter index
@@ -58,9 +58,9 @@ fetchData().then(() => {
     }
 
     // If the Backspace key is pressed pop the last letter from the current guess array
-    if (letter === 'Backspace' && guess.length > 0) {
+    if (letter === 'Backspace' && guesses.length > 0) {
 
-      guess.pop();
+      guesses.pop();
       letterIndex--;
 
       // Notice that the letter index is decremented before the letter is removed from the dom
@@ -68,10 +68,10 @@ fetchData().then(() => {
       
     }
 
-    if (letter === 'Enter' && guess.length === 5) {
+    if (letter === 'Enter' && guesses.length === 5) {
 
       // YOU WIN 
-      if (solution === guess.join('')) {        
+      if (solution === guesses.join('')) {        
 
         /* words[guessIndex].children.forEach(el => {
           el.classList.add('correct');
@@ -93,14 +93,14 @@ fetchData().then(() => {
         for (let i = 0; i < solutionLetters.length; i++) {
 
           // The letters are correct and in the correct position
-          if (guess[i] === solutionLetters[i]) {
+          if (guesses[i] === solutionLetters[i]) {
 
             words[guessIndex].children[i].classList.add('correct');
 
           }
 
           // The letters are correct but in the wrong position
-          else if (solution.includes(guess[i])) {
+          else if (solution.includes(guesses[i])) {
 
             words[guessIndex].children[i].classList.add('close');
 
@@ -122,7 +122,7 @@ fetchData().then(() => {
         } else {
 
         guessIndex++;
-        guess = [];
+        guesses = [];
         letterIndex = 0;
 
         }
